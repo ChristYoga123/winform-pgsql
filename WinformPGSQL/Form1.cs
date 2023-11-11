@@ -1,3 +1,5 @@
+using WinformPGSQL.App.Context;
+
 namespace WinformPGSQL
 {
     public partial class Form1 : Form
@@ -5,6 +7,7 @@ namespace WinformPGSQL
         public Form1()
         {
             InitializeComponent();
+            tabelProdi.DataSource = ProdiContext.all();
         }
     }
 }
