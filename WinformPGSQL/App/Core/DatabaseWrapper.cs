@@ -29,22 +29,18 @@ namespace WinformPGSQL.App.Core
         private static NpgsqlCommand command;
 
         // Method open dan close Koneksi
-        public static NpgsqlConnection openConnection()
+        public static void openConnection()
         {
-            if(connection == null)
-            {
-                connection = new NpgsqlConnection($"Host={DB_HOST};Username={DB_USERNAME};Password={DB_PASSWORD};Database={DB_DATABASE};Port={DB_PORT}");
-                connection.Open();
-                command = new NpgsqlCommand();
-                command.Connection = connection;
-            }
-
-            return connection;
+            connection = new NpgsqlConnection($"Host={DB_HOST};Username={DB_USERNAME};Password={DB_PASSWORD};Database={DB_DATABASE};Port={DB_PORT}");
+            connection.Open();
+            command = new NpgsqlCommand();
+            command.Connection = connection;
         }
 
         public static void closeConnection()
         {
             connection.Close();
+            command.Parameters.Clear();
         }
 
         // Method Query dan Command Wrapper
@@ -56,6 +52,7 @@ namespace WinformPGSQL.App.Core
             if(parameters != null)
             {
                 command.Parameters.AddRange(parameters);
+                command.Prepare();
             }
             NpgsqlDataAdapter dataAdapter = new NpgsqlDataAdapter(command);
             dataAdapter.Fill(dataTable);

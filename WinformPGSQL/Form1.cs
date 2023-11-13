@@ -7,7 +7,7 @@ namespace WinformPGSQL
         public Form1()
         {
             InitializeComponent();
-            tabelProdi.DataSource = ProdiContext.all();
+            tabelMahasiswa.DataSource = MahasiswaContext.all();
         }
     }
 }
