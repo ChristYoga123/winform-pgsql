@@ -58,7 +58,22 @@ namespace WinformPGSQL
                 tabelMahasiswa.DataSource = MahasiswaContext.all();
             }
 
+            if (e.ColumnIndex == tabelMahasiswa.Columns["ubahButton"].Index && e.RowIndex >= 0)
+            {
+                // Menyusun kode yang akan dijalankan saat tombol "Hapus" diklik
+                // Anda bisa menggunakan e.RowIndex untuk mengidentifikasi baris yang diklik.
+                // Misalnya, Anda dapat mengambil ID dari baris yang diklik dan kemudian menghapusnya dari data.
 
+                int idMahasiswaUbah = Convert.ToInt32(tabelMahasiswa.Rows[e.RowIndex].Cells["id"].Value);
+
+                using (EditMahasiswa editMahasiswaForm = new EditMahasiswa(idMahasiswaUbah))
+                {
+                    EditMahasiswa halamanEditMahasiswa = new EditMahasiswa(idMahasiswaUbah);
+                    halamanEditMahasiswa.ShowDialog();
+                }
+                tabelMahasiswa.DataSource = null;
+                tabelMahasiswa.DataSource = MahasiswaContext.all();
+            }
         }
     }
 }

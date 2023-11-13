@@ -8,6 +8,8 @@ using System.Threading.Tasks;
 using WinformPGSQL.App.Core;
 using WinformPGSQL.App.Models;
 using NpgsqlTypes;
+using System.Collections;
+
 namespace WinformPGSQL.App.Context
 {
     internal class MahasiswaContext : DatabaseWrapper
@@ -18,6 +20,17 @@ namespace WinformPGSQL.App.Context
         {
             string query = $"SELECT {table}.id, {table}.nama as Nama, {table}.nim as NIM, prodi.nama_prodi AS Prodi FROM {table} JOIN prodi ON prodi.id = {table}.prodi_id";
             DataTable dataMahasiswa = queryExecutor(query);
+            return dataMahasiswa;
+        }
+
+        public static DataTable show(int id)
+        {
+            string query = $"SELECT * FROM {table} WHERE id = @id";
+            NpgsqlParameter[] parameters =
+            {
+                new NpgsqlParameter("@id", NpgsqlDbType.Integer){Value = id},
+            };
+            DataTable dataMahasiswa = queryExecutor(query, parameters);
             return dataMahasiswa;
         }
 
@@ -39,6 +52,19 @@ namespace WinformPGSQL.App.Context
             NpgsqlParameter[] parameters =
             {
                 new NpgsqlParameter("@id", NpgsqlDbType.Integer){Value = id},
+            };
+            commandExecutor(query, parameters);
+        }
+
+        public static void update(M_Mahasiswa mahasiswaEdit)
+        {
+            string query = $"UPDATE {table} SET nama = @nama, nim = @nim, prodi_id = @prodi_id WHERE id = @id";
+            NpgsqlParameter[] parameters =
+            {
+                new NpgsqlParameter("@nama", NpgsqlDbType.Varchar){Value = mahasiswaEdit.nama},
+                new NpgsqlParameter("@nim", NpgsqlDbType.Varchar){Value = mahasiswaEdit.nim},
+                new NpgsqlParameter("@prodi_id", NpgsqlDbType.Integer){Value = mahasiswaEdit.prodi_id},
+                new NpgsqlParameter("@id", NpgsqlDbType.Integer){Value = mahasiswaEdit.id},
             };
             commandExecutor(query, parameters);
         }
