@@ -43,13 +43,13 @@ namespace WinformPGSQL
                 // Anda bisa menggunakan e.RowIndex untuk mengidentifikasi baris yang diklik.
                 // Misalnya, Anda dapat mengambil ID dari baris yang diklik dan kemudian menghapusnya dari data.
 
-                int idMahasiswa = Convert.ToInt32(tabelMahasiswa.Rows[e.RowIndex].Cells["hapusButton"].Value);
+                int idMahasiswaHapus = Convert.ToInt32(tabelMahasiswa.Rows[e.RowIndex].Cells["id"].Value);
 
                 // Panggil metode destroy dari kelas M_Mahasiswa untuk menghapus mahasiswa tetapi konfirmasi dulu
                 DialogResult message = MessageBox.Show("Apakah anda yakin ingin menghapus data ini?", "Konfirmasi Hapus", MessageBoxButtons.YesNo);
                 if (message == DialogResult.Yes)
                 {
-                    MahasiswaContext.destroy(idMahasiswa);
+                    MahasiswaContext.destroy(idMahasiswaHapus);
                     DialogResult messageHapus = MessageBox.Show("Data berhasil dihapus", "Sukses", MessageBoxButtons.OK);
                 }
 
@@ -57,6 +57,8 @@ namespace WinformPGSQL
                 tabelMahasiswa.DataSource = null;
                 tabelMahasiswa.DataSource = MahasiswaContext.all();
             }
+
+
         }
     }
 }
