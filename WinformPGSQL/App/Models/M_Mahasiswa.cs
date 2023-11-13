@@ -11,7 +11,7 @@ namespace WinformPGSQL.App.Models
     internal class M_Mahasiswa
     {
         [Key]
-        public int id { get; set; }
+        public int? id { get; set; }
         [Required]
         public string nama { get; set; }
         public string nim { get; set; }

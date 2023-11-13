@@ -46,29 +46,41 @@ namespace WinformPGSQL.App.Core
         // Method Query dan Command Wrapper
         public static DataTable queryExecutor(string query, NpgsqlParameter[] parameters = null)
         {
-            openConnection();
-            DataTable dataTable = new DataTable();
-            command.CommandText = query;
-            if(parameters != null)
+            try
             {
-                command.Parameters.AddRange(parameters);
-                command.Prepare();
+                openConnection();
+                DataTable dataTable = new DataTable();
+                command.CommandText = query;
+                if(parameters != null)
+                {
+                    command.Parameters.AddRange(parameters);
+                    command.Prepare();
+                }
+                NpgsqlDataAdapter dataAdapter = new NpgsqlDataAdapter(command);
+                dataAdapter.Fill(dataTable);
+                closeConnection();
+                return dataTable;
+            } catch(Exception e)
+            {
+                throw new Exception(e.Message);
             }
-            NpgsqlDataAdapter dataAdapter = new NpgsqlDataAdapter(command);
-            dataAdapter.Fill(dataTable);
-            closeConnection();
-            return dataTable;
         }
 
         public static void commandExecutor(string query, NpgsqlParameter[] parameters = null)
         {
-            openConnection();
-            command.CommandText = query;
-            command.Parameters.AddRange(parameters);
-            command.Prepare();
-            command.Parameters.Clear();
-            command.ExecuteNonQuery();
-            closeConnection();
+            try
+            {
+                openConnection();
+                command.CommandText = query;
+                command.Parameters.AddRange(parameters);
+                command.Prepare();
+                command.Parameters.Clear();
+                command.ExecuteNonQuery();
+                closeConnection();
+            } catch(Exception e)
+            {
+                throw new Exception(e.Message);
+            }
         }
 
 

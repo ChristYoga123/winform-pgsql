@@ -30,7 +30,7 @@
         {
             tabelMahasiswa = new DataGridView();
             label1 = new Label();
-            button1 = new Button();
+            tambahButton = new Button();
             ((System.ComponentModel.ISupportInitialize)tabelMahasiswa).BeginInit();
             SuspendLayout();
             // 
@@ -45,6 +45,7 @@
             tabelMahasiswa.RowTemplate.Height = 25;
             tabelMahasiswa.Size = new Size(594, 309);
             tabelMahasiswa.TabIndex = 0;
+            tabelMahasiswa.CellContentClick += tabelMahasiswa_CellContentClick;
             // 
             // label1
             // 
@@ -57,23 +58,24 @@
             label1.Text = "SELAMAT DATANG DI PROGRAM CRUD MAHASISWA";
             label1.TextAlign = ContentAlignment.TopCenter;
             // 
-            // button1
+            // tambahButton
             // 
-            button1.BackColor = Color.Blue;
-            button1.ForeColor = SystemColors.ControlLightLight;
-            button1.Location = new Point(107, 40);
-            button1.Name = "button1";
-            button1.Size = new Size(152, 28);
-            button1.TabIndex = 2;
-            button1.Text = "+ Tambah Mahasiswa";
-            button1.UseVisualStyleBackColor = false;
+            tambahButton.BackColor = Color.Blue;
+            tambahButton.ForeColor = SystemColors.ControlLightLight;
+            tambahButton.Location = new Point(107, 40);
+            tambahButton.Name = "tambahButton";
+            tambahButton.Size = new Size(152, 28);
+            tambahButton.TabIndex = 2;
+            tambahButton.Text = "+ Tambah Mahasiswa";
+            tambahButton.UseVisualStyleBackColor = false;
+            tambahButton.Click += tambahButton_Click;
             // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
-            Controls.Add(button1);
+            Controls.Add(tambahButton);
             Controls.Add(label1);
             Controls.Add(tabelMahasiswa);
             Name = "Form1";
@@ -87,6 +89,6 @@
 
         private DataGridView tabelMahasiswa;
         private Label label1;
-        private Button button1;
+        private Button tambahButton;
     }
 }
